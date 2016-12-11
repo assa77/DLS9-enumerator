@@ -3,9 +3,9 @@
 This repository contains **DLS9-enumerator**, the Intel® MPI optimized application for enumerating
 [Diagonal Latin Squares (DLS)](https://en.wikipedia.org/wiki/Latin_square) of order 9.
 
-On this moment, supports execution under Microsoft Windows 7 (or newer) on *x86-64* CPU and *Intel® Xeon Phi™ Coprocessors*.
+On this moment, supports execution under Microsoft Windows 7 (or newer) on **x86-64** CPU and **Intel® Xeon Phi™ Coprocessors**.
 
-*Tested* on Microsoft Windows 10 Pro and Microsoft Windows Server 2012 R2 systems with *[Intel® Xeon Phi™ x100 (KNC) Coprocessors](http://ark.intel.com/products/family/92649/Intel-Xeon-Phi-Coprocessor-x100-Product-Family)*.
+*Tested* on Microsoft Windows 10 Pro and Microsoft Windows Server 2012 R2 systems with [Intel® Xeon Phi™ x100 (KNC) Coprocessors](http://ark.intel.com/products/family/92649/Intel-Xeon-Phi-Coprocessor-x100-Product-Family).
 
 ## Requirements
 
@@ -15,8 +15,8 @@ This project optimized to build under Windows using Microsoft Visual Studio 2015
 
 ## Usage
 
-Open Microsoft Visual Studio solution *[dls9.sln](dls9.sln)* to build Microsoft Windows executable.
-Use included Windows CMD batch file *[!cross.cmd](dls9/!cross.cmd)* to build version for Intel® Xeon Phi™ Coprocessor.
+Open Microsoft Visual Studio solution [dls9.sln](dls9.sln) to build Microsoft Windows executable.
+Use included Windows CMD batch file [!cross.cmd](dls9/!cross.cmd) to build version for Intel® Xeon Phi™ Coprocessor.
 
 To run benchmarks on included [dls9_count_data](dls9/dls9_count_data) file:
 
@@ -30,15 +30,15 @@ Intel® Xeon Phi™ | *[bench](dls9/bench)* *\[min-ranks\]* *\[max-ranks\]* (on Cop
 **[DLS9-enumerator](https://github.com/assa77/DLS9-enumerator)** was developed by *[Alexander M. Albertian](mailto:assa@4ip.ru)*.
 DLS enumeration is based on *[Nauchnik (Oleg Zaikin)](https://github.com/Nauchnik)* [sources](https://github.com/Nauchnik/DLS9_enumeration).
 
-All contributions are welcome! Please do *NOT* use an editor that automatically reformats whitespace.
+All contributions are welcome! Please do **NOT** use an editor that automatically reformats whitespace.
 
 ## Download
 
-You can download precompiled project executables from [here](releases).
+You can download precompiled project executables from [here](https://github.com/assa77/DLS9-enumerator/releases).
 
 ## Benchmarking results
 
-You can find some benchmarking results and CMD script for log files processing in the folder *[results](results).
+You can find some benchmarking results and CMD script for log files processing in the folder [results](results).
 
 ## License
 
