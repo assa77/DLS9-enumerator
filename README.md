@@ -34,7 +34,11 @@ All contributions are welcome! Please do *NOT* use an editor that automatically 
 
 ## Download
 
-You can download precompiled project executables from [here](https://github.com/assa77/DLS9-enumerator/releases).
+You can download precompiled project executables from [here](releases).
+
+## Benchmarking results
+
+You can find some benchmarking results and CMD script for log files processing in the folder *[results](results).
 
 ## License
 
