@@ -1,0 +1,73 @@
+#!/bin/bash
+
+####################################################################
+# Intel Xeon Phi KNC benchmarking script
+#
+# by Alexander M. Albertian, 10 Dec 2016
+#
+
+# Do NOT set -e!
+
+EXE="./dls9.mic"
+DATA="dls9_count_data"
+
+for fn in "$EXE" "$DATA"; do
+	if [ ! -f "$fn" ]; then
+		echo "*** ERROR: File \"$fn\" doesn't exist" >&2
+		exit 1
+	fi
+done
+
+chmod 0755 "$EXE" 2>&1 >/dev/null
+
+MPIEXEC="$(which "mpiexec" 2>/dev/null | head -n 1 2>/dev/null)"
+
+if [ -z "$MPIEXEC" ] || [ ! -x "$MPIEXEC" ]; then
+	echo "*** ERROR: Can't find mpiexec" >&2
+	exit 1
+else
+	echo "MPIEXEC : \"$MPIEXEC\"" >&2
+fi
+
+START=1
+STEP=1
+
+let "NPROC=$1" 2>/dev/null
+let "STOP=$2" 2>/dev/null
+
+if [ ! -z "$NPROC" ]; then
+	START=$NPROC
+fi
+let START+=1
+
+if [ -z "$STOP" ]; then
+	STOP=280
+fi
+let STOP+=1
+
+echo "  START = $START" >&2
+echo "   STOP = $STOP" >&2
+echo "   STEP = $STEP" >&2
+echo >&2
+
+if [ $START -lt 2 -o $START -gt $STOP ]; then
+	echo "*** ERROR: Invalid number of processes" >&2
+	exit 1
+fi
+
+for i in `seq $START $STEP $STOP`; do
+	echo "= $i Ranks =============================" >&2
+
+	"$MPIEXEC" -np $i "$EXE" "$DATA" -1 /dev/null >"$i.log" 2>&1
+	RES=$?
+	if [ $RES -ne 0 ]; then
+		echo "*** ERROR: ($RES)" >&2
+		exit 1
+	fi
+
+	echo "...Ok" >&2
+
+	sleep 1s
+done
+
+exit 0
