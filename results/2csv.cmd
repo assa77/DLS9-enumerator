@@ -5,24 +5,23 @@ setlocal disabledelayedexpansion
 echo ***************************************************************************** >&2
 echo * DLS9 enumerator - Optimized MPI version of the DLS enumeration application  >&2
 echo *                                                                             >&2
-echo *   2csv.bat    : Convert benchmarking data to CSV                            >&2
+echo *   2csv.bat    : Convert benchmarking data into the CSV format               >&2
 echo *                                                                             >&2
 echo ***************************************************************************** >&2
 echo * Copyright (c) 2016 by Alexander M. Albertian, ^<assa@4ip.ru^>.                >&2
 echo *                                                                             >&2
 echo * Usage:                                                                      >&2
-echo *   2csv.bat [^<directory-with-log-files^>]                                     >&2
+echo *   2csv.bat [^<directory-with-log-files^>] [^<separator-character^>]             >&2
 echo ***************************************************************************** >&2
 echo. >&2
 
-set "SEPARATOR=;"
+set "SEPARATOR=%~2"
+if "%SEPARATOR%"=="" set "SEPARATOR=,"
+echo "Number of processes"%SEPARATOR%"Squares per second"%SEPARATOR%"Time per square (ns)"
 
 set "DATA=%~dpnx1"
 if "%DATA%"=="" set "DATA=%CD%"
-
 cd /d "%DATA%"
-
-echo "Number of processes"%SEPARATOR%"Squares per second"%SEPARATOR%"Time per square (ns)"
 
 for /f "tokens=* delims=" %%i in ( 'dir /b /odsn *.log' ) do (
 	call :rename "%%~i"
