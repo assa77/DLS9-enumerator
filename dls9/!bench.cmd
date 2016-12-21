@@ -2,21 +2,22 @@
 setlocal enableextensions
 setlocal disabledelayedexpansion
 
-echo *****************************************************************************
+echo *************************************************************** 2016.12.19 **
 echo * DLS9 enumerator - Optimized MPI version of the DLS enumeration application
 echo *
-echo *   !bench.bat  : CMD benchmarking script
+echo *   !bench.cmd  : CMD benchmarking script
 echo *
 echo *****************************************************************************
 echo * Copyright (c) 2016 by Alexander M. Albertian, ^<assa@4ip.ru^>.
 echo *
 echo * Usage:
-echo *   !bench.bat [^<minimal-number-of-ranks^> [^<maximal-number-of-ranks^>]]
+echo *   !bench.cmd [^<minimal-number-of-ranks^> [^<maximal-number-of-ranks^>]]
 echo *****************************************************************************
 echo.
 
 set "EXE=..\x64\Release\dls9.exe"
 set "DATA=dls9_count_data"
+set "NBENCH=2"
 
 for %%i in ( "%EXE%" "%DATA%" ) do (
 	if not exist "%%~dpnxi" (
@@ -65,8 +66,7 @@ if %START% gtr %STOP% goto error
 for /l %%i in ( %START%, %STEP%, %STOP% ) do (
 	echo.= %%i Ranks ============================= >&2
 
-	rem mpiexec.exe -np %%i "%EXE%" "%DATA%" -1 nul: >"%%i.log" 2>&1
-	mpiexec.exe -np %%i "%EXE%" "%DATA%" -2 nul: >"%%i.log" 2>&1
+	mpiexec.exe -np %%i "%EXE%" "%DATA%" -%NBENCH% nul: >"%%i.log" 2>&1
 	if errorlevel 1 (
 		set "err_msg=(%errorlevel%)"
 		goto error
@@ -78,4 +78,4 @@ set "err_msg="
 
 :error
 if not "%err_msg%"=="" echo *** ERROR: %err_msg% >&2 & pause
-endlocal & endlocal & goto :eof
+endlocal & endlocal

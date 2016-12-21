@@ -2,10 +2,10 @@
 setlocal enableextensions
 setlocal disabledelayedexpansion
 
-echo *****************************************************************************
+echo *************************************************************** 2016.12.19 **
 echo * DLS9 enumerator - Optimized MPI version of the DLS enumeration application
 echo *
-echo *   !cross.bat  : CMD batch file for MIC cross-compilation
+echo *   !cross.cmd  : CMD batch file for MIC cross-compilation
 echo *
 echo *****************************************************************************
 echo * Copyright (c) 2016 by Alexander M. Albertian, ^<assa@4ip.ru^>.
@@ -17,18 +17,18 @@ rem call iclvars.bat intel64
 set "prj_name=dls9"
 
 set "err_msg=NUMBER_OF_PROCESSORS environment variable isn't set"
-if "%NUMBER_OF_PROCESSORS%"=="" goto :error
+if "%NUMBER_OF_PROCESSORS%"=="" goto error
 
 set "err_msg=Intel C/C++ compiler isn't found: icl.exe"
 "%SystemRoot%\system32\where.exe" icl.exe >nul 2>nul
-if errorlevel 1 goto :error
+if errorlevel 1 goto error
 
 set "err_msg=Intel MPI Library for MIC isn't found"
-if not exist "%I_MPI_ROOT%\mic\include\mpi.h" goto :error
+if not exist "%I_MPI_ROOT%\mic\include\mpi.h" goto error
 
 set "err_msg=No source file(s)"
-if not exist "%prj_name%.cpp" goto :error
-if not exist "nanotimer.c" goto :error
+if not exist "%prj_name%.cpp" goto error
+if not exist "nanotimer.c" goto error
 
 set "err_msg=Creation of %prj_name%.mic failed..."
 if exist %prj_name%.mic del /q /f %prj_name%.mic >nul 2>nul
@@ -41,4 +41,4 @@ set "err_msg="
 
 :error
 if not "%err_msg%"=="" echo *** ERROR: %err_msg% >&2 & pause
-endlocal & endlocal & goto :eof
+endlocal & endlocal
